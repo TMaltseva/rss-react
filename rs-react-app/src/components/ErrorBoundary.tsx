@@ -19,7 +19,6 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): State {
-    // Обновляем стейт, чтобы следующий рендер показал fallback UI
     return {
       hasError: true,
       error,
@@ -27,7 +26,6 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // Логируем ошибку в консоль согласно требованиям
     console.error('Error caught by boundary:', {
       error: error,
       errorInfo: errorInfo,
@@ -44,7 +42,6 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   render(): React.ReactNode {
     if (this.state.hasError) {
-      // Показываем fallback UI согласно требованиям
       return (
         <div className="error-boundary-fallback">
           <h2 className="error-message">Something went wrong</h2>
