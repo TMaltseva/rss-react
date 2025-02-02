@@ -1,8 +1,8 @@
 .search-container {
     display: flex;
-    justify-content: center;
     gap: 1rem;
     align-items: center;
+    justify-content: center;
     margin-bottom: 2rem;
   }
   
@@ -17,7 +17,7 @@
     height: 48px;
   }
   
-  .search-container button {
+  .search-container .search-button {
     padding: 12px 24px;
     height: 48px;
     min-width: 120px;
@@ -30,7 +30,25 @@
     transition: all 0.3s ease;
   }
   
-  .search-container button:hover {
+  .search-container .search-button:hover {
     background: #535bf2;
     border-color: #535bf2;
+  }
+  
+  .search-container .throw-error-btn {
+    padding: 12px 24px;
+    height: 48px;
+    min-width: 120px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #ff4444;
+    border: 1px solid #ff4444;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .search-container .throw-error-btn:hover {
+    background-color: #ff2222;
+    border-color: #ff2222;
   }

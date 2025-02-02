@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
-import ThrowErrorButton from './components/ErrorButton';
 import { fetchData } from './services/api';
 import { Character } from './types';
 import Loading from './components/Loading';
@@ -64,8 +63,8 @@ export default class App extends Component<Record<string, never>, AppState> {
     return (
       <main className="sections-wrapper">
         <div className="top-section">
-          <SearchBar onSearch={this.handleSearch} />
-          <ThrowErrorButton
+          <SearchBar
+            onSearch={this.handleSearch}
             onError={() => {
               throw new Error('Test error thrown');
             }}

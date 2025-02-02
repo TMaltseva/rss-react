@@ -1,9 +1,10 @@
 import { Component } from 'react';
-
 import '../styles/components/SearchBar.css';
+import ThrowErrorButton from './ErrorButton';
 
 interface SearchBarProps {
   onSearch: (term: string) => void;
+  onError: () => void;
 }
 
 interface SearchBarState {
@@ -49,6 +50,7 @@ export default class SearchBar extends Component<SearchBarProps, SearchBarState>
         <button className="search-button" onClick={this.handleSearch}>
           Search
         </button>
+        <ThrowErrorButton onError={this.props.onError} />
       </div>
     );
   }
