@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import '../styles/components/SearchBar.css';
 
 interface SearchBarProps {
@@ -27,6 +28,12 @@ export default class SearchBar extends Component<SearchBarProps, SearchBarState>
     this.props.onSearch(trimmedTerm);
   };
 
+  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      this.handleSearch();
+    }
+  };
+
   render() {
     return (
       <div className="search-container">
@@ -35,6 +42,7 @@ export default class SearchBar extends Component<SearchBarProps, SearchBarState>
           className="search-input"
           value={this.state.searchTerm}
           onChange={this.handleInputChange}
+          onKeyDown={this.handleKeyDown}
           placeholder="Search..."
           aria-label="Search input"
         />

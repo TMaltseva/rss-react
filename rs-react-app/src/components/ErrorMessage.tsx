@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import '../styles/components/ErrorMessage.css';
 
 interface ErrorMessageProps {

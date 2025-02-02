@@ -1,7 +1,13 @@
-.error-container {
-    padding: 1rem;
-    background: rgba(255, 0, 0, 0.1);
-    border-radius: 4px;
-    margin: 1rem 0;
+.error-message {
+    font-size: 60px;
+    margin: auto 20px;
+    margin-bottom: 40px;
+}
+  
+.error-boundary-fallback {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }

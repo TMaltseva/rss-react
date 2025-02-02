@@ -4,6 +4,7 @@ import SearchResults from './components/SearchResults';
 import ThrowErrorButton from './components/ErrorButton';
 import { fetchData } from './services/api';
 import { Character } from './types';
+import Loading from './components/Loading';
 
 import './styles/index.css';
 
@@ -71,7 +72,7 @@ export default class App extends Component<Record<string, never>, AppState> {
           />
         </div>
         <div className="bottom-section">
-          {loading && <div className="loading">Loading...</div>}
+          {loading && <Loading />}
           {error && <div className="error-message">{error}</div>}
           {!loading && !error && <SearchResults results={results} />}
         </div>
