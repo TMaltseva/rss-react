@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Component } from 'react';
+import SearchBar from './components/SearchBar';
+import SearchResults from './components/SearchResults';
+import ThrowErrorButton from './components/ErrorButton';
+import { fetchData } from './services/api';
+import { Character } from './types';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './styles/index.css';
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface AppState {
+  results: Character[];
+  loading: boolean;
+  error: string | null;
 }
 
-export default App
+export default class App extends Component<Record<string, never>, AppState> {
+  constructor(props: Record<string, never>) {
+    super(props);
+    this.state = {
+      results: [],
+      loading: false,
+      error: null,
+    };
+  }
+
+  componentDidMount(): void {
+    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
+    this.handleSearch(savedSearchTerm);
+  }
+
+  handleSearch = async (searchTerm: string): Promise<void> => {
+    this.setState({ loading: true, error: null });
+
+    try {
+      const response = await fetchData(searchTerm);
+
+      if (response.error) {
+        this.setState({
+          error: response.error,
+          loading: false,
+          results: [],
+        });
+        return;
+      }
+
+      this.setState({
+        results: response.results,
+        loading: false,
+        error: null,
+      });
+    } catch (error) {
+      this.setState({
+        error: error instanceof Error ? error.message : 'An unexpected error occurred',
+        loading: false,
+        results: [],
+      });
+    }
+  };
+
+  render(): React.ReactNode {
+    const { results, loading, error } = this.state;
+
+    return (
+      <main className="sections-wrapper">
+        <div className="top-section">
+          <SearchBar onSearch={this.handleSearch} />
+          <ThrowErrorButton
+            onError={() => {
+              throw new Error('Test error thrown');
+            }}
+          />
+        </div>
+        <div className="bottom-section">
+          {loading && <div className="loading">Loading...</div>}
+          {error && <div className="error-message">{error}</div>}
+          {!loading && !error && <SearchResults results={results} />}
+        </div>
+      </main>
+    );
+  }
+}
