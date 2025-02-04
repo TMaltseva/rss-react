@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://tmaltseva.github.io/rss-react/rs-react-app",
+  "homepage": "https://tmaltseva.github.io/rss-react",
+
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
