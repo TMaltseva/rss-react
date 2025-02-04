@@ -1,13 +1,13 @@
 .error-message {
-    font-size: 60px;
-    margin: auto 20px;
-    margin-bottom: 40px;
+  font-size: 60px;
+  margin: auto 20px;
+  margin-bottom: 40px;
 }
-  
+
 .error-boundary-fallback {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
