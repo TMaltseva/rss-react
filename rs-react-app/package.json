@@ -3,13 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://tmaltseva.github.io/rss-react/rs-react-app",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -r https://github.com/TMaltseva/rss-react.git"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -27,6 +30,7 @@
     "eslint-plugin-react-compiler": "^19.0.0-beta-27714ef-20250124",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "husky": "^8.0.3",
     "prettier": "^3.4.2",
