@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "prepare": "husky && husky install",
+    "pre-commit": "npm run lint",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -r https://github.com/TMaltseva/rss-react.git"
   },
