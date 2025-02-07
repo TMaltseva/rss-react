@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import '../styles/components/SearchBar.css';
 import ThrowErrorButton from './ErrorButton';
+
+import '../styles/components/SearchBar.css';
 
 interface SearchBarProps {
   onSearch: (term: string) => void;
