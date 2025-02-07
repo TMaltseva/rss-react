@@ -1,8 +1,3 @@
-export interface SearchResult {
-  name: string;
-  description?: string;
-}
-
 export interface Character {
   name: string;
   height: string;

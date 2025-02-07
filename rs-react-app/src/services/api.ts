@@ -17,11 +17,19 @@ export const fetchData = async (searchTerm: string): Promise<APIResponse> => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+      switch (response.status) {
+        case 404:
+          throw new Error('Resource not found');
+        case 500:
+          throw new Error('Server error');
+        case 0:
+          throw new Error('Problem connecting to the server');
+        default:
+          throw new Error(`Error ${response.status}`);
+      }
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('API Error:', error);
     return {
