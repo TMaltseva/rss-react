@@ -66,7 +66,7 @@ export const useSearchWithStorage = () => {
 
       handleSearch(currentSearch, page);
     },
-    [searchParams, handleSearch]
+    [searchParams, handleSearch, setSearchParams]
   );
 
   return {
