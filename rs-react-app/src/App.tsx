@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useSearchParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useSearchParams, Outlet } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import CharacterDetails from './components/CharacterDetails';
@@ -86,24 +86,22 @@ const MainLayout = () => {
           )}
         </div>
       </div>
-      <Routes>
-        <Route path="/character/:id" element={<CharacterDetails />} />
-      </Routes>
+      <div className="right-section">
+        <Outlet />
+      </div>
     </main>
   );
 };
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="/character/:id" element={<CharacterDetails />} />
-        </Route>
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="character/:id" element={<CharacterDetails />} />
+      </Route>
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<Navigate to="/404" replace />} />
+    </Routes>
   );
 };
 
