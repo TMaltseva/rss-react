@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ErrorButton from './ErrorButton';
 
 import '../styles/components/SearchBar.css';
@@ -18,21 +18,24 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
     }
   }, [onSearch]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-  };
+  }, []);
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     const trimmedTerm = searchTerm.trim();
     localStorage.setItem('searchTerm', trimmedTerm);
     onSearch(trimmedTerm);
-  };
+  }, [searchTerm, onSearch]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
-  };
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') {
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
 
   return (
     <div className="search-container">

@@ -6,7 +6,7 @@
     height: 100vh;
     background: #1a1a1a;
     border-left: 1px solid #646cff;
-    padding: 2rem;
+    padding: 2rem 1rem;
     overflow-y: auto;
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease-out;
