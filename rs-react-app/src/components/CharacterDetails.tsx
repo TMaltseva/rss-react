@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Character } from '../types';
 import Loading from './Loading';
 
+import '../styles/components/CharacterDetails.css';
+
 interface CharacterDetailsProps {
   onClose?: () => void;
 }

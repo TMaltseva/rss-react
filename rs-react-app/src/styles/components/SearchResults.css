@@ -19,6 +19,7 @@
 .result-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(100, 108, 255, 0.2);
+  cursor: pointer;
 }
 
 .result-card h3 {
@@ -46,4 +47,41 @@
   min-height: 50vh;
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.sections-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.left-section {
+  flex: 1;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.left-section.with-details {
+  width: 60%;
+}
+
+.content-section {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+
+.right-section {
+  width: 40%;
+  position: relative;
+}
+
+.right-section:empty {
+  display: none;
+}
+
+.sections-wrapper:has(.right-section:not(:empty)) .left-section {
+  width: 60%;
 }

@@ -95,15 +95,14 @@ const MainContent = ({ showDetails = false }: { showDetails?: boolean }) => {
   );
 };
 
-const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<MainContent />} />
-      <Route path="/character/:id" element={<MainContent showDetails={true} />} />
-      <Route path="/404" element={<NotFound />} />
-      <Route path="*" element={<Navigate to="/404" replace />} />
-    </Routes>
-  );
-};
+const App: React.FC = () => (
+  <Routes>
+    <Route path="/" element={<MainContent />} />
+    <Route path="character/:id" element={<MainContent showDetails={true} />} />
+    <Route path="404" element={<NotFound />} />
+    <Route path="" element={<Navigate to="/" replace />} />
+    <Route path="*" element={<Navigate to="/404" replace />} />
+  </Routes>
+);
 
 export default App;
