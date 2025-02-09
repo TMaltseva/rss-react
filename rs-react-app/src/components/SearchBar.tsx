@@ -1,41 +1,38 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import ErrorButton from './ErrorButton';
-
 import '../styles/components/SearchBar.css';
 
+const useSearchTerm = () => {
+  const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
+
+  useEffect(() => {
+    localStorage.setItem('searchTerm', searchTerm);
+  }, [searchTerm]);
+
+  return [searchTerm, setSearchTerm] as const;
+};
+
 interface SearchBarProps {
-  onSearch: (term: string) => void;
+  onSearch: (term: string, page: number) => void;
 }
 
 const SearchBar = ({ onSearch }: SearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useSearchTerm();
 
-  useEffect(() => {
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    setSearchTerm(savedTerm);
-    if (savedTerm) {
-      onSearch(savedTerm);
-    }
-  }, [onSearch]);
-
-  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-  }, []);
+  };
 
-  const handleSearch = useCallback(() => {
+  const handleSearch = () => {
     const trimmedTerm = searchTerm.trim();
-    localStorage.setItem('searchTerm', trimmedTerm);
-    onSearch(trimmedTerm);
-  }, [searchTerm, onSearch]);
+    onSearch(trimmedTerm, 1);
+  };
 
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter') {
-        handleSearch();
-      }
-    },
-    [handleSearch]
-  );
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="search-container">

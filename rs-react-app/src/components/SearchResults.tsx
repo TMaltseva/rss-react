@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Character } from '../types';
 import Pagination from './Pagination';
 
@@ -12,9 +12,31 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ results, currentPage, totalPages, onPageChange }: SearchResultsProps) => {
-  const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
 
-  if (results.length === 0) {
+  const handleCardClick = (characterUrl: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const id = characterUrl.split('/').filter(Boolean).pop();
+    if (id) {
+      setSearchParams((prev) => {
+        const params = new URLSearchParams(prev);
+        const search = params.get('search');
+        const page = params.get('page');
+
+        params.delete('search');
+        params.delete('page');
+        params.delete('details');
+
+        if (search) params.set('search', search);
+        if (page) params.set('page', page);
+        params.set('details', id);
+
+        return params;
+      });
+    }
+  };
+
+  if (!results || results.length === 0) {
     return (
       <div className="no-results">
         <p>No results found</p>
@@ -22,16 +44,11 @@ const SearchResults = ({ results, currentPage, totalPages, onPageChange }: Searc
     );
   }
 
-  const handleCardClick = (characterUrl: string) => {
-    const id = characterUrl.split('/').filter(Boolean).pop();
-    navigate(`/character/${id}`);
-  };
-
   return (
     <>
       <div className="results-grid">
         {results.map((result, index) => (
-          <div key={index} className="result-card" onClick={() => handleCardClick(result.url)}>
+          <div key={index} className="result-card" onClick={(e) => handleCardClick(result.url, e)}>
             <h3>{result.name}</h3>
             <p>Height: {result.height}</p>
             <p>Mass: {result.mass}</p>

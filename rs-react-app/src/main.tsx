@@ -15,7 +15,7 @@ if (!rootElement) {
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter basename="/rss-react/rs-react-app">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ErrorBoundary>

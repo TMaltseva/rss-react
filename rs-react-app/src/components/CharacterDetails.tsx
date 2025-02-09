@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Character } from '../types';
 import Loading from './Loading';
 
 import '../styles/components/CharacterDetails.css';
 
-interface CharacterDetailsProps {
-  onClose?: () => void;
-}
-
-export const CharacterDetails = ({ onClose }: CharacterDetailsProps) => {
+export const CharacterDetails = () => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const id = searchParams.get('details');
 
   useEffect(() => {
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     const fetchCharacter = async () => {
       try {
         const response = await fetch(`https://swapi.dev/api/people/${id}`);
@@ -34,10 +37,11 @@ export const CharacterDetails = ({ onClose }: CharacterDetailsProps) => {
   }, [id]);
 
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
-    navigate('/');
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      params.delete('details');
+      return params;
+    });
   };
 
   if (loading) return <Loading />;
