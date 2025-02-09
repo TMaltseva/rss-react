@@ -7,7 +7,7 @@ interface CharacterDetailsProps {
   onClose?: () => void;
 }
 
-const CharacterDetails = ({ onClose }: CharacterDetailsProps) => {
+export const CharacterDetails = ({ onClose }: CharacterDetailsProps) => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

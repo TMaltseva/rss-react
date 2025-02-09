@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useSearchParams, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, useSearchParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
 import CharacterDetails from './components/CharacterDetails';
@@ -63,14 +63,14 @@ const useSearchWithStorage = () => {
   };
 };
 
-const MainLayout = () => {
+const MainContent = ({ showDetails = false }: { showDetails?: boolean }) => {
   const { results, loading, error, currentPage, handleSearch, handlePageChange, itemsPerPage } = useSearchWithStorage();
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedResults = results.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <main className="sections-wrapper">
+    <main className={`sections-wrapper ${showDetails ? 'with-details' : ''}`}>
       <div className="left-section">
         <SearchBar onSearch={handleSearch} />
         <div className="content-section">
@@ -86,9 +86,11 @@ const MainLayout = () => {
           )}
         </div>
       </div>
-      <div className="right-section">
-        <Outlet />
-      </div>
+      {showDetails && (
+        <div className="right-section">
+          <CharacterDetails />
+        </div>
+      )}
     </main>
   );
 };
@@ -96,9 +98,8 @@ const MainLayout = () => {
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="character/:id" element={<CharacterDetails />} />
-      </Route>
+      <Route path="/" element={<MainContent />} />
+      <Route path="/character/:id" element={<MainContent showDetails={true} />} />
       <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<Navigate to="/404" replace />} />
     </Routes>

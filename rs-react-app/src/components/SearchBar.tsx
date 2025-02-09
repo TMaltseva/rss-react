@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
     if (savedTerm) {
       onSearch(savedTerm);
     }
-  }, []);
+  }, [onSearch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
