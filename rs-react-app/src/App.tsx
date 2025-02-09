@@ -1,82 +1,110 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useSearchParams } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
+import CharacterDetails from './components/CharacterDetails';
 import { fetchData } from './services/api';
 import { Character } from './types';
 import Loading from './components/Loading';
 import ErrorMessage from './components/ErrorMessage';
+import NotFound from './components/NotFound';
 
 import './styles/index.css';
 
-interface AppState {
-  results: Character[];
-  loading: boolean;
-  error: string | null;
-}
+const useSearchWithStorage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [results, setResults] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-export default class App extends Component<Record<string, never>, AppState> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      results: [],
-      loading: false,
-      error: null,
-    };
-  }
-
-  componentDidMount(): void {
+  useEffect(() => {
     const savedSearchTerm = localStorage.getItem('searchTerm') || '';
-    this.handleSearch(savedSearchTerm);
-  }
+    const page = searchParams.get('page') || '1';
+    setCurrentPage(Number(page));
+    handleSearch(savedSearchTerm);
+  }, [searchParams]);
 
-  handleSearch = async (searchTerm: string): Promise<void> => {
-    this.setState({ loading: true, error: null });
+  const handleSearch = async (searchTerm: string) => {
+    setLoading(true);
+    setError(null);
 
     try {
       const response = await fetchData(searchTerm);
 
       if (response.error) {
-        this.setState({
-          error: response.error,
-          loading: false,
-          results: [],
-        });
-        return;
+        setError(response.error);
+        setResults([]);
+      } else {
+        setResults(response.results);
       }
-
-      this.setState({
-        results: response.results,
-        loading: false,
-        error: null,
-      });
     } catch (error) {
-      this.setState({
-        error: error instanceof Error ? error.message : 'An unexpected error occurred',
-        loading: false,
-        results: [],
-      });
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
+      setResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
-  render(): React.ReactNode {
-    const { results, loading, error } = this.state;
+  const handlePageChange = (page: number) => {
+    setSearchParams({ page: page.toString() });
+    setCurrentPage(page);
+  };
 
-    return (
-      <main className="sections-wrapper">
-        <div className="top-section">
-          <SearchBar
-            onSearch={this.handleSearch}
-            onError={() => {
-              throw new Error('Test error thrown');
-            }}
-          />
-        </div>
-        <div className="bottom-section">
+  return {
+    results,
+    loading,
+    error,
+    currentPage,
+    handleSearch,
+    handlePageChange,
+    itemsPerPage,
+  };
+};
+
+const MainLayout = () => {
+  const { results, loading, error, currentPage, handleSearch, handlePageChange, itemsPerPage } = useSearchWithStorage();
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedResults = results.slice(startIndex, startIndex + itemsPerPage);
+
+  return (
+    <main className="sections-wrapper">
+      <div className="left-section">
+        <SearchBar onSearch={handleSearch} />
+        <div className="content-section">
           {loading && <Loading />}
           {error && <ErrorMessage message={error} />}
-          {!loading && !error && <SearchResults results={results} />}
+          {!loading && !error && (
+            <SearchResults
+              results={paginatedResults}
+              currentPage={currentPage}
+              totalPages={Math.ceil(results.length / itemsPerPage)}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
-      </main>
-    );
-  }
-}
+      </div>
+      <Routes>
+        <Route path="/character/:id" element={<CharacterDetails />} />
+      </Routes>
+    </main>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/character/:id" element={<CharacterDetails />} />
+        </Route>
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
