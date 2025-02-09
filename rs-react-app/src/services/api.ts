@@ -10,9 +10,11 @@ interface APIResponse {
 
 const API_URL = 'https://swapi.dev/api/people';
 
-export const fetchData = async (searchTerm: string): Promise<APIResponse> => {
+export const fetchData = async (searchTerm: string, page: number = 1): Promise<APIResponse> => {
   try {
-    const url = searchTerm ? `${API_URL}/?search=${encodeURIComponent(searchTerm)}` : API_URL;
+    const url = searchTerm
+      ? `${API_URL}/?search=${encodeURIComponent(searchTerm)}&page=${page}`
+      : `${API_URL}/?page=${page}`;
 
     const response = await fetch(url);
 
