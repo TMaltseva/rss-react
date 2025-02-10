@@ -8,7 +8,9 @@ import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  {
+    ignores: ['dist', '.vite/**/*', 'node_modules/**/*'],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.strict, eslintPluginPrettier],
     files: ['**/*.{ts,tsx}'],
@@ -28,6 +30,10 @@ export default tseslint.config(
       'react-compiler/react-compiler': 'error',
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-internal/safe-string-coercion': 'off',
+      'jsx-a11y/anchor-has-content': 'off',
     },
     settings: {
       react: {
