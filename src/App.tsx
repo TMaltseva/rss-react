@@ -5,7 +5,7 @@ import CharacterDetails from './components/CharacterDetails';
 
 import './styles/index.css';
 
-const basePath = process.env.NODE_ENV === 'production' ? '/rss-react/rs-react-app' : '';
+const basePath = process.env.NODE_ENV === 'production' ? '/rss-react/' : '';
 
 const App = () => (
   <Routes>

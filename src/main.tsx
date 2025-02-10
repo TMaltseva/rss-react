@@ -7,7 +7,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './styles/index.css';
 
 const rootElement = document.getElementById('root');
-const basename = process.env.NODE_ENV === 'production' ? '/rss-react/rs-react-app' : '/';
+const basename = process.env.NODE_ENV === 'production' ? '/rss-react/' : '/';
 
 if (!rootElement) {
   throw new Error('Failed to find the root element');
