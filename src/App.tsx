@@ -5,15 +5,13 @@ import CharacterDetails from './components/CharacterDetails';
 
 import './styles/index.css';
 
-const basePath = process.env.NODE_ENV === 'production' ? '/rss-react/' : '';
-
 const App = () => (
   <Routes>
-    <Route path={`${basePath}/`} element={<MainContent />}>
+    <Route path="/" element={<MainContent />}>
       <Route index element={<CharacterDetails />} />
     </Route>
-    <Route path={`${basePath}/404`} element={<NotFound />} />
-    <Route path="*" element={<Navigate to={`${basePath}/404`} replace />} />
+    <Route path="/404" element={<NotFound />} />
+    <Route path="*" element={<Navigate to="/404" replace />} />
   </Routes>
 );
 

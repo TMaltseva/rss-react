@@ -1,70 +1,70 @@
 .character-details {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 40%;
-    height: 100vh;
-    background: #1a1a1a;
-    border-left: 1px solid #646cff;
-    padding: 2rem 1rem;
-    overflow-y: auto;
-    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-    animation: slideIn 0.3s ease-out;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100vh;
+  background: #1a1a1a;
+  border-left: 1px solid #646cff;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
   }
-  
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+  to {
+    transform: translateX(0);
   }
-  
-  .character-details .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: transparent;
-    border: none;
-    font-size: 2rem;
-    color: #646cff;
-    cursor: pointer;
-    padding: 0.5rem;
-    min-width: auto;
-    height: auto;
-    line-height: 1;
-  }
-  
-  .character-details h2 {
-    color: #646cff;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(100, 108, 255, 0.3);
-  }
-  
-  .details-content {
-    margin-top: 2rem;
-  }
-  
-  .details-content p {
-    margin: 0.75rem 0;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  
-  .details-content h3 {
-    color: #646cff;
-    margin: 1.5rem 0 1rem;
-  }
-  
-  .details-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .details-content li {
-    padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid rgba(100, 108, 255, 0.1);
-  }
+}
+
+.character-details .close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #646cff;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-width: auto;
+  height: auto;
+  line-height: 1;
+}
+
+.character-details h2 {
+  color: #646cff;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(100, 108, 255, 0.3);
+}
+
+.details-content {
+  margin-top: 2rem;
+}
+
+.details-content p {
+  margin: 0.75rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.details-content h3 {
+  color: #646cff;
+  margin: 1.5rem 0 1rem;
+}
+
+.details-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.details-content li {
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(100, 108, 255, 0.1);
+}
