@@ -1,0 +1,3 @@
+echo "/.vite/" >> .eslintignore
+echo "dist/" >> .eslintignore
+echo "node_modules/" >> .eslintignore
