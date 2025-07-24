@@ -1,38 +1,30 @@
-import { useSearchParams, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import SearchResults from './components/SearchResults';
-import { useSearchWithStorage } from './hooks/useSearchWithStorage';
+import { useSearch } from './hooks/useSearch';
 import Loading from './components/Loading';
 import ErrorMessage from './components/ErrorMessage';
 
 const MainContent = () => {
-  const { results, loading, error, currentPage, totalPages, handleSearch, handlePageChange } = useSearchWithStorage();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const showDetails = searchParams.has('details');
-
-  const handleLeftSectionClick = (e: React.MouseEvent) => {
-    if (!(e.target as HTMLElement).closest('.result-card')) {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        const search = params.get('search');
-        const page = params.get('page');
-
-        params.delete('search');
-        params.delete('page');
-        params.delete('details');
-
-        if (search) params.set('search', search);
-        if (page) params.set('page', page);
-
-        return params;
-      });
-    }
-  };
+  const {
+    results,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    searchTerm,
+    showDetails,
+    handleSearch,
+    handlePageChange,
+    handleDetailsOpen,
+    handleDetailsClose,
+  } = useSearch();
 
   return (
     <main className={`sections-wrapper ${showDetails ? 'with-details' : ''}`}>
-      <div className="left-section" onClick={handleLeftSectionClick}>
-        <SearchBar onSearch={handleSearch} />
+      <div className="left-section">
+        <SearchBar onSearch={handleSearch} initialValue={searchTerm} />
+
         <div className="content-section">
           {loading && <Loading />}
           {error && <ErrorMessage message={error} />}
@@ -42,15 +34,19 @@ const MainContent = () => {
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
+              onCardClick={handleDetailsOpen}
             />
           )}
         </div>
       </div>
 
       {showDetails && (
-        <div className="right-section">
-          <Outlet />
-        </div>
+        <>
+          <div className="close-overlay" onClick={handleDetailsClose} />
+          <div className="right-section">
+            <Outlet />
+          </div>
+        </>
       )}
     </main>
   );

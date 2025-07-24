@@ -1,31 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ErrorButton from './ErrorButton';
 import '../styles/components/SearchBar.css';
 
-const useSearchTerm = () => {
-  const [searchTerm, setSearchTerm] = useState(localStorage.getItem('searchTerm') || '');
-
-  useEffect(() => {
-    localStorage.setItem('searchTerm', searchTerm);
-  }, [searchTerm]);
-
-  return [searchTerm, setSearchTerm] as const;
-};
-
 interface SearchBarProps {
-  onSearch: (term: string, page: number) => void;
+  onSearch: (term: string) => void;
+  initialValue?: string;
 }
 
-const SearchBar = ({ onSearch }: SearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useSearchTerm();
+const SearchBar = ({ onSearch, initialValue = '' }: SearchBarProps) => {
+  const [inputValue, setInputValue] = useState(initialValue);
+
+  useState(() => {
+    setInputValue(initialValue);
+  });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleSearch = () => {
-    const trimmedTerm = searchTerm.trim();
-    onSearch(trimmedTerm, 1);
+    onSearch(inputValue.trim());
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -39,10 +33,10 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
       <input
         type="text"
         className="search-input"
-        value={searchTerm}
+        value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        placeholder="Search..."
+        placeholder="Search characters..."
         aria-label="Search input"
       />
       <button className="search-button" onClick={handleSearch}>

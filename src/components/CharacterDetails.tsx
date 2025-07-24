@@ -1,47 +1,44 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useUrlParams } from '../hooks/useUrlParams';
+import { fetchCharacterById } from '../services/api';
 import { Character } from '../types';
 import Loading from './Loading';
-
 import '../styles/components/CharacterDetails.css';
 
 export const CharacterDetails = () => {
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const id = searchParams.get('details');
+  const { details, updateDetails } = useUrlParams();
 
   useEffect(() => {
-    if (!id) {
+    if (!details) {
       setLoading(false);
+      setCharacter(null);
+      setError(null);
       return;
     }
 
     setLoading(true);
-    const fetchCharacter = async () => {
+    setError(null);
+
+    const loadCharacter = async () => {
       try {
-        const response = await fetch(`https://swapi.dev/api/people/${id}`);
-        if (!response.ok) throw new Error('Character not found');
-        const data = await response.json();
+        const data = await fetchCharacterById(details);
         setCharacter(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch character');
+        setCharacter(null);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCharacter();
-  }, [id]);
+    loadCharacter();
+  }, [details]);
 
   const handleClose = () => {
-    setSearchParams((prev) => {
-      const params = new URLSearchParams(prev);
-      params.delete('details');
-      return params;
-    });
+    updateDetails(null);
   };
 
   if (loading) return <Loading />;

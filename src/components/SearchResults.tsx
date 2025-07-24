@@ -1,7 +1,5 @@
-import { useSearchParams } from 'react-router-dom';
 import { Character } from '../types';
 import Pagination from './Pagination';
-
 import '../styles/components/SearchResults.css';
 
 interface SearchResultsProps {
@@ -9,31 +7,13 @@ interface SearchResultsProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  onCardClick: (characterUrl: string) => void;
 }
 
-const SearchResults = ({ results, currentPage, totalPages, onPageChange }: SearchResultsProps) => {
-  const [, setSearchParams] = useSearchParams();
-
-  const handleCardClick = (characterUrl: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const id = characterUrl.split('/').filter(Boolean).pop();
-    if (id) {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        const search = params.get('search');
-        const page = params.get('page');
-
-        params.delete('search');
-        params.delete('page');
-        params.delete('details');
-
-        if (search) params.set('search', search);
-        if (page) params.set('page', page);
-        params.set('details', id);
-
-        return params;
-      });
-    }
+const SearchResults = ({ results, currentPage, totalPages, onPageChange, onCardClick }: SearchResultsProps) => {
+  const handleCardClick = (characterUrl: string) => {
+    // e.stopPropagation();
+    onCardClick(characterUrl);
   };
 
   if (!results || results.length === 0) {
@@ -48,7 +28,7 @@ const SearchResults = ({ results, currentPage, totalPages, onPageChange }: Searc
     <>
       <div className="results-grid">
         {results.map((result, index) => (
-          <div key={index} className="result-card" onClick={(e) => handleCardClick(result.url, e)}>
+          <div key={index} className="result-card" onClick={() => handleCardClick(result.url)}>
             <h3>{result.name}</h3>
             <p>Height: {result.height}</p>
             <p>Mass: {result.mass}</p>

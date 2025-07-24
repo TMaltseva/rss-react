@@ -8,7 +8,23 @@ interface APIResponse {
   error?: string;
 }
 
-const API_URL = 'https://swapi.dev/api/people';
+const API_URL = 'https://swapi.py4e.com/api/people';
+
+const handleResponse = async (response: Response) => {
+  if (!response.ok) {
+    switch (response.status) {
+      case 404:
+        throw new Error('Resource not found');
+      case 500:
+        throw new Error('Server error');
+      case 0:
+        throw new Error('Problem connecting to the server');
+      default:
+        throw new Error(`Error ${response.status}`);
+    }
+  }
+  return response.json();
+};
 
 export const fetchData = async (searchTerm: string, page: number = 1): Promise<APIResponse> => {
   try {
@@ -17,21 +33,7 @@ export const fetchData = async (searchTerm: string, page: number = 1): Promise<A
       : `${API_URL}/?page=${page}`;
 
     const response = await fetch(url);
-
-    if (!response.ok) {
-      switch (response.status) {
-        case 404:
-          throw new Error('Resource not found');
-        case 500:
-          throw new Error('Server error');
-        case 0:
-          throw new Error('Problem connecting to the server');
-        default:
-          throw new Error(`Error ${response.status}`);
-      }
-    }
-
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.error('API Error:', error);
     return {
@@ -41,5 +43,25 @@ export const fetchData = async (searchTerm: string, page: number = 1): Promise<A
       results: [],
       error: error instanceof Error ? error.message : 'Unknown error occurred',
     };
+  }
+};
+
+export const fetchCharacterById = async (id: string): Promise<Character> => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`);
+    return await handleResponse(response);
+  } catch (error) {
+    console.error('Character fetch error:', error);
+    throw error;
+  }
+};
+
+export const fetchResource = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    return await handleResponse(response);
+  } catch (error) {
+    console.error('Resource fetch error:', error);
+    throw error;
   }
 };
