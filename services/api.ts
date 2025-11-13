@@ -23,6 +23,28 @@ export async function fetchCharacters(searchTerm: string = '', page: number = 1)
   }
 }
 
+export async function fetchAllCharacters(searchTerm: string): Promise<Character[]> {
+  const allCharacters: Character[] = [];
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    try {
+      const data = await fetchCharacters(searchTerm, page);
+
+      allCharacters.push(...data.results);
+
+      hasMore = data.next !== null;
+      page++;
+    } catch (error) {
+      console.error(`Error fetching page ${page}:`, error);
+      hasMore = false;
+    }
+  }
+
+  return allCharacters;
+}
+
 export async function fetchCharacterById(id: string): Promise<Character> {
   try {
     const response = await fetch(`${API_URL}/${id}`);
