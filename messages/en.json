@@ -1,0 +1,53 @@
+{
+    "HomePage": {
+      "title": "Star Wars Characters Search",
+      "description": "Search and explore Star Wars characters"
+    },
+    "SearchBar": {
+      "placeholder": "Search characters...",
+      "search": "Search",
+      "searching": "Searching..."
+    },
+    "SearchResults": {
+      "noResults": "No results found",
+      "height": "Height",
+      "mass": "Mass",
+      "hairColor": "Hair Color",
+      "skinColor": "Skin Color",
+      "eyeColor": "Eye Color",
+      "birthYear": "Birth Year",
+      "gender": "Gender"
+    },
+    "Pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {current} of {total}"
+    },
+    "CharacterDetails": {
+      "close": "Close",
+      "height": "Height",
+      "mass": "Mass",
+      "hairColor": "Hair Color",
+      "skinColor": "Skin Color",
+      "eyeColor": "Eye Color",
+      "birthYear": "Birth Year",
+      "gender": "Gender",
+      "homeworld": "Homeworld",
+      "films": "Films"
+    },
+    "NotFound": {
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist.",
+      "goHome": "Go Home"
+    },
+    "LanguageSwitcher": {
+      "switchTo": "Switch to {language}"
+    },
+    "Loading": {
+      "loading": "Loading..."
+    },
+    "ErrorMessage": {
+      "title": "Error",
+      "description": "Something went wrong."
+    }
+  }
