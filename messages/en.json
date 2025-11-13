@@ -9,7 +9,7 @@
       "searching": "Searching..."
     },
     "SearchResults": {
-      "noResults": "No results found",
+      "noResults": "No characters found",
       "height": "Height",
       "mass": "Mass",
       "hairColor": "Hair Color",
@@ -17,6 +17,14 @@
       "eyeColor": "Eye Color",
       "birthYear": "Birth Year",
       "gender": "Gender"
+    },
+    "CSVExport": {
+      "button": "Export to CSV",
+      "exporting": "Exporting results...",
+      "success": "Exported {count} characters",
+      "errorNoCharacters": "No characters to export",
+      "errorFailed": "Failed to generate CSV file",
+      "errorGeneric": "Failed to export"
     },
     "Pagination": {
       "previous": "Previous",

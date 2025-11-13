@@ -9,14 +9,22 @@
       "searching": "Поиск..."
     },
     "SearchResults": {
-      "noResults": "Результаты не найдены",
+      "noResults": "Персонажи не найдены",
       "height": "Рост",
-      "mass": "Масса",
+      "mass": "Вес",
       "hairColor": "Цвет волос",
       "skinColor": "Цвет кожи",
       "eyeColor": "Цвет глаз",
       "birthYear": "Год рождения",
       "gender": "Пол"
+    },
+    "CSVExport": {
+      "button": "Экспорт в CSV",
+      "exporting": "Экспортируем результаты...",
+      "success": "Экспортировано {count} персонажей",
+      "errorNoCharacters": "Нет персонажей для экспорта",
+      "errorFailed": "Не удалось создать CSV файл",
+      "errorGeneric": "Ошибка экспорта"
     },
     "Pagination": {
       "previous": "Назад",
