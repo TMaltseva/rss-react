@@ -16,9 +16,17 @@ import '@/styles/components/CSVExport.css';
 import '@/styles/components/Loading.css';
 
 export const metadata: Metadata = {
-  title: 'Star Wars Characters Search',
-  description: 'Search and explore Star Wars characters',
-};
+    title: 'Star Wars Characters Search',
+    description: 'Search and explore Star Wars characters',
+    openGraph: {
+      type: 'website',
+      siteName: 'Star Wars Search',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
