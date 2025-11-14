@@ -31,7 +31,7 @@
       "next": "Вперёд",
       "page": "Страница {current} из {total}"
     },
-    "CharacterDetails": {
+      "CharacterDetails": {
       "close": "Закрыть",
       "height": "Рост",
       "mass": "Масса",
@@ -40,8 +40,9 @@
       "eyeColor": "Цвет глаз",
       "birthYear": "Год рождения",
       "gender": "Пол",
-      "homeworld": "Родной мир",
-      "films": "Фильмы"
+      "films": "Фильмы",
+      "physicalCharacteristics": "Физические характеристики",
+      "generalInformation": "Общая информация"
     },
     "NotFound": {
       "title": "Страница не найдена",

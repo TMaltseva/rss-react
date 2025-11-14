@@ -31,7 +31,7 @@
       "next": "Next",
       "page": "Page {current} of {total}"
     },
-    "CharacterDetails": {
+      "CharacterDetails": {
       "close": "Close",
       "height": "Height",
       "mass": "Mass",
@@ -40,8 +40,9 @@
       "eyeColor": "Eye Color",
       "birthYear": "Birth Year",
       "gender": "Gender",
-      "homeworld": "Homeworld",
-      "films": "Films"
+      "films": "Films",
+      "physicalCharacteristics": "Physical Characteristics",
+      "generalInformation": "General Information"
     },
     "NotFound": {
       "title": "Page Not Found",
