@@ -1,0 +1,239 @@
+.character-details-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .character-details {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 500px;
+    max-width: 90vw;
+    background: #1a1a1a;
+    color: white;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+    animation: slideInRight 0.3s ease;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 1;
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .close-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .character-header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .character-avatar {
+    margin-bottom: 1rem;
+  }
+  
+  .character-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4a9eff;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .avatar-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border: 4px solid #4a9eff;
+  }
+  
+  .avatar-placeholder svg {
+    width: 80px;
+    height: 80px;
+    color: white;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .character-header h2 {
+    font-size: 1.8rem;
+    color: #4a9eff;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .character-details-content {
+    padding: 2rem;
+  }
+  
+  .details-section {
+    margin-bottom: 2rem;
+  }
+  
+  .details-section h3 {
+    font-size: 1.1rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+  }
+  
+  .details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+  
+  .detail-label {
+    color: #888;
+    font-weight: 500;
+  }
+  
+  .detail-value {
+    color: white;
+    text-align: right;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 60%;
+  }
+  
+  .films-count {
+    background: rgba(74, 158, 255, 0.1);
+    border: 2px solid #4a9eff;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4a9eff;
+  }
+  
+  .error-state {
+    padding: 2rem;
+    text-align: center;
+    color: #ff4444;
+  }
+  
+  .character-details::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .character-details::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .character-details::-webkit-scrollbar-thumb {
+    background: rgba(74, 158, 255, 0.5);
+    border-radius: 4px;
+  }
+  
+  .character-details::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 158, 255, 0.7);
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .character-details {
+      width: 100vw;
+      max-width: 100vw;
+    }
+  
+    .character-header {
+      padding: 1.5rem;
+    }
+  
+    .character-image {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .avatar-placeholder svg {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .character-header h2 {
+      font-size: 1.5rem;
+    }
+  
+    .character-details-content {
+      padding: 1.5rem;
+    }
+  
+    .detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  
+    .detail-value {
+      text-align: left;
+      max-width: 100%;
+    }
+  }
